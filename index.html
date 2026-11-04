@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111214">
+<title>Abolfazl Qorbani | Digital Business Card</title>
+
+<style>
+  /* Persian font: B Titr Bold */
+@font-face {
+  font-family: "BTitr";
+  src: url("./assets/fonts/Btitrb.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* English font: Manrope */
+@font-face {
+  font-family: "Manrope";
+  src: url("assets/fonts/Manrope.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+:root {
+  --bg:#0d0e10;
+  --line:rgba(255,255,255,.12);
+  --muted:#a6a7ab;
+  --text:#f4f4f2;
+  --accent:#d5a46b;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  min-height:100vh;
+  padding:30px 16px;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 50% -15%,rgba(213,164,107,.12),transparent 42%),
+    linear-gradient(145deg,#111214,#0b0c0e 65%,#141518);
+  font-family: "Manrope", sans-serif;;
+}
+.wrap {width:min(100%,760px);margin:auto}
+.card {
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:26px;
+  background:linear-gradient(155deg,#1d1e22,#0f1012 58%);
+  box-shadow:0 28px 90px rgba(0,0,0,.48);
+}
+.topline {
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.content {padding:clamp(22px,5vw,46px)}
+.toolbar {display:flex;justify-content:flex-end;margin-bottom:20px}
+.lang-btn {
+  border:1px solid rgba(213,164,107,.55);
+  border-radius:999px;
+  padding:9px 16px;
+  background:rgba(213,164,107,.08);
+  color:#f1dfc9;
+  cursor:pointer;
+}
+.portrait-frame {
+  width:min(100%,330px);
+  aspect-ratio:1;
+  margin:0 auto 28px;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 18px 45px rgba(0,0,0,.42);
+}
+.portrait-frame img {
+  width:100%;height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:50% 0%;
+}
+.identity {text-align:center}
+h1 {
+  margin:0;
+  font-size:clamp(29px,6vw,48px);
+  letter-spacing:-.04em;
+}
+.specialty {
+  margin-top:13px;
+  color:#d8d8d5;
+  font-size:14px;
+  letter-spacing:.08em;
+}
+.company {
+  margin-top:27px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  font-size:16px;
+  font-weight:600;
+}
+.company-mark {
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--accent);
+}
+.role {margin-top:9px;color:var(--muted);font-size:14px}
+.rule {height:1px;margin:32px 0;background:var(--line)}
+.section-title {
+  margin:0 0 14px;
+  font-size:12px;
+  color:#c8a77f;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.contact-list {display:grid;gap:10px}
+.contact-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+  text-decoration:none;
+  color:var(--text);
+  transition:.2s;
+}
+.contact-row:hover,.social:hover {
+  border-color:rgba(213,164,107,.55);
+  transform:translateY(-2px);
+}
+.row-left {display:flex;flex-direction:column;gap:5px}
+.contact-label {color:var(--muted);font-size:12px}
+.contact-value {
+  font-size:15px;
+  font-weight:550;
+  direction:ltr;
+  unicode-bidi:isolate;
+  text-align:left;
+  overflow-wrap:anywhere;
+}
+.icon {width:22px;height:22px;flex:none}
+.social-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
+}
+.social {
+  min-height:65px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--text);
+  text-decoration:none;
+  background:rgba(255,255,255,.025);
+  transition:.2s;
+}
+.social svg {width:27px;height:27px;flex:none}
+.social span {font-size:14px;font-weight:550}
+.arrow {margin-left:auto;color:#85868a}
+body[dir="rtl"] .arrow {margin-left:0;margin-right:auto}
+.social.disabled {opacity:.45;cursor:default}
+.social.disabled:hover {transform:none;border-color:var(--line)}
+.company-panel {
+  padding:19px 20px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.025);
+}
+.company-name {font-size:18px;font-weight:600}
+.company-note {margin-top:7px;color:var(--muted);font-size:13px}
+.save-wrap {display:flex;justify-content:center;margin-top:28px}
+.save-btn {
+  border:1px solid rgba(213,164,107,.55);
+  border-radius:999px;
+  padding:14px 24px;
+  background:rgba(213,164,107,.1);
+  color:#f1dfc9;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+footer {
+  text-align:center;
+  margin-top:28px;
+  color:#77797e;
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+  body[dir="rtl"] {
+  font-family: "BTitr", sans-serif !important;
+}
+body[dir="rtl"] h1 {letter-spacing:0}
+body[dir="rtl"] .section-title {letter-spacing:0;text-align:right}
+body[dir="rtl"] .row-left {align-items:flex-end;text-align:right}
+body[dir="rtl"] footer {letter-spacing:0}
+@media(max-width:480px) {
+  body {padding:16px 10px}
+  .content {padding:20px 17px}
+  .portrait-frame {width:min(100%,300px)}
+  .social-grid {gap:9px}
+  .social {padding:12px;gap:9px}
+  .social span {font-size:13px}
+  .contact-value {font-size:14px}
+}
+/* Keep contact information LTR */
+
+.contact-row {
+  direction: ltr;
+}
+
+.contact-row .row-left {
+  direction: rtl;
+  align-items: flex-start;
+}
+
+.contact-value {
+  direction: ltr !important;
+  unicode-bidi: isolate;
+  text-align: left !important;
+}
+
+/* Social media always LTR */
+
+.social-grid,
+.social {
+  direction: ltr;
+}
+
+.social span,
+.social b {
+  direction: ltr;
+}
+
+.email-value {
+  direction: ltr !important;
+  unicode-bidi: isolate;
+  text-align: left !important;
+  font-family: "Manrope", sans-serif !important;
+  font-feature-settings: "lnum" 1;
+}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+<article class="card">
+<div class="topline"></div>
+
+<div class="content">
+
+<div class="toolbar">
+<button class="lang-btn" id="languageToggle"
+onclick="toggleLanguage()">فارسی</button>
+</div>
+
+<div class="portrait-frame">
+<img src="assets/portrait.jpg" alt="Abolfazl Qorbani">
+</div>
+
+<header class="identity">
+<h1 data-en="Abolfazl Qorbani" data-fa="ابوالفضل قربانی">
+Abolfazl Qorbani
+</h1>
+
+<p class="specialty"
+data-en="Biomedical Engineer · R&D Specialist"
+data-fa="مهندس پزشکی · کارشناس تحقیق و توسعه">
+Biomedical Engineer · R&D Specialist
+</p>
+
+<div class="company">
+<i class="company-mark"></i>
+<span
+data-en="Future Wave Technologists Co."
+data-fa="شرکت فناوران موج آینده">
+Future Wave Technologists Co.
+</span>
+</div>
+
+<p class="role"
+data-en="Executive Director & Board Member"
+data-fa="مدیر اجرایی و عضو هیئت‌مدیره">
+Executive Director & Board Member
+</p>
+</header>
+
+<div class="rule"></div>
+
+<section>
+<h2 class="section-title"
+data-en="Contact" data-fa="اطلاعات تماس">Contact</h2>
+
+<div class="contact-list">
+
+<a class="contact-row" href="tel:+989129217522">
+<div class="row-left">
+<span class="contact-label" data-en="Phone 01" data-fa="تلفن ۱">Phone 01</span>
+<span class="contact-value"
+data-en="+98 912 921 7522"
+data-fa="+۹۸ ۹۱۲ ۹۲۱ ۷۵۲۲">
++98 912 921 7522
+</span>
+</div>
+<span class="icon">☎</span>
+</a>
+
+<a class="contact-row" href="tel:+989357550776">
+<div class="row-left">
+<span class="contact-label" data-en="Phone 02" data-fa="تلفن ۲">Phone 02</span>
+<span class="contact-value"
+data-en="+98 935 755 0776"
+data-fa="+۹۸ ۹۳۵ ۷۵۵ ۰۷۷۶">
++98 935 755 0776
+</span>
+</div>
+<span class="icon">☎</span>
+</a>
+
+<a class="contact-row" href="mailto:abolfazlqorbani912@gmail.com">
+  <div class="row-left">
+    <span class="contact-label"
+    data-en="Email" data-fa="ایمیل">Email</span>
+
+    <span class="contact-value email-value"
+    dir="ltr" lang="en">
+      abolfazlqorbani912@gmail.com
+    </span>
+  </div>
+  <span class="icon">✉</span>
+</a>
+
+</div>
+</section>
+
+<div class="rule"></div>
+
+<!-- SOCIAL MEDIA LINKS -->
+
+<section aria-label="Social links">
+<div class="social-grid">
+
+<!-- TELEGRAM -->
+<a class="social" href="https://t.me/qv_abolfazl"
+target="_blank" rel="noopener noreferrer"
+aria-label="Telegram">
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path fill="#29A9EB"
+d="M21.8 3.2 18.5 20c-.25 1.18-.92 1.47-1.87.92l-5.18-3.82-2.5 2.4c-.28.28-.52.52-1.07.52l.37-5.27 9.6-8.67c.42-.37-.09-.58-.65-.21L5.33 13.2.2 11.6c-1.12-.35-1.14-1.12.24-1.66L20.5 2.3c.93-.34 1.74.22 1.3.9z"/>
+</svg>
+
+<span>Telegram</span>
+<b class="arrow">↗</b>
+</a>
+
+<!-- WHATSAPP -->
+<a class="social" href="https://wa.me/qv_abolfazl"
+target="_blank" rel="noopener noreferrer"
+aria-label="WhatsApp">
+
+<svg viewBox="0 0 32 32" aria-hidden="true">
+<path fill="#25D366"
+d="M16 .8A15.1 15.1 0 0 0 3.05 23.68L1 31l7.5-1.97A15.1 15.1 0 1 0 16 .8z"/>
+<path fill="#fff"
+d="M16 3.3A12.6 12.6 0 0 0 5.2 22.4l.27.43-1.22 4.47 4.59-1.2.42.25A12.6 12.6 0 1 0 16 3.3zm7.37 18.1c-.31.87-1.8 1.67-2.48 1.77-.64.1-1.45.14-2.34-.14-.54-.17-1.23-.4-2.12-.78-3.72-1.61-6.15-5.37-6.34-5.62-.18-.25-1.51-2.01-1.51-3.83s.95-2.72 1.29-3.1c.34-.37.74-.46.99-.46h.71c.23.01.54-.09.84.64.31.75 1.05 2.57 1.14 2.76.09.19.15.41.03.66-.12.25-.19.4-.37.62-.19.22-.39.49-.56.66-.19.19-.38.39-.16.76.22.37.97 1.6 2.08 2.59 1.43 1.28 2.64 1.68 3.01 1.87.37.19.59.16.81-.1.22-.25.93-1.08 1.18-1.45.25-.37.5-.31.84-.19.34.12 2.16 1.02 2.53 1.2.37.19.62.28.71.43.09.16.09.9-.22 1.77z"/>
+</svg>
+
+<span>WhatsApp</span>
+<b class="arrow">↗</b>
+</a>
+
+<!-- BALE -->
+<a class="social" href="https://ble.ir/qv_abolfazl"
+target="_blank" rel="noopener noreferrer"
+aria-label="Bale">
+
+<img
+src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bale_logo.png"
+alt="Bale logo"
+width="28"
+height="28"
+style="width:28px;height:28px;object-fit:contain;border-radius:7px;flex:none;">
+
+<span>Bale</span>
+<b class="arrow">↗</b>
+</a>
+
+<!-- WEBSITE - ADD YOUR URL LATER -->
+<a class="social disabled" href="#"
+aria-disabled="true" tabindex="-1">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<circle cx="12" cy="12" r="9" fill="none"
+stroke="#aaa" stroke-width="1.7"/>
+<path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"
+fill="none" stroke="#aaa" stroke-width="1.5"/>
+</svg>
+<span>Website</span>
+<b class="arrow">↗</b>
+</a>
+
+</div>
+</section>
+
+<div class="rule"></div>
+
+<section>
+<h2 class="section-title"
+data-en="Company" data-fa="شرکت">Company</h2>
+
+<div class="company-panel">
+<div class="company-name"
+data-en="Future Wave Technologists Co."
+data-fa="شرکت فناوران موج آینده">
+Future Wave Technologists Co.
+</div>
+<div class="company-note"
+data-en="Technology · Research · Development"
+data-fa="فناوری · تحقیق · توسعه">
+Technology · Research · Development
+</div>
+</div>
+</section>
+
+<div class="save-wrap">
+<button class="save-btn" onclick="downloadContact()"
+data-en="＋ SAVE CONTACT" data-fa="＋ ذخیره مخاطب">
+＋ SAVE CONTACT
+</button>
+</div>
+
+<footer
+data-en="Professional Connection · Digital Business Card"
+data-fa="ارتباط حرفه‌ای · کارت ویزیت دیجیتال">
+Professional Connection · Digital Business Card
+</footer>
+
+</div>
+</article>
+</main>
+
+<script>
+let currentLanguage = "en";
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === "en" ? "fa" : "en";
+
+  document.documentElement.lang = currentLanguage;
+  document.documentElement.dir =
+    currentLanguage === "fa" ? "rtl" : "ltr";
+
+  document.body.dir =
+    currentLanguage === "fa" ? "rtl" : "ltr";
+
+  document.querySelectorAll("[data-en][data-fa]")
+    .forEach(el => {
+      el.textContent = el.dataset[currentLanguage];
+    });
+
+  document.getElementById("languageToggle").textContent =
+    currentLanguage === "en" ? "فارسی" : "English";
+}
+
+function downloadContact() {
+  const vcard = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:Qorbani;Abolfazl;;;",
+    "FN:Abolfazl Qorbani",
+    "ORG:Future Wave Technologists Co.",
+    "TITLE:Executive Director & Board Member",
+    "TEL;TYPE=CELL,VOICE:+989129217522",
+    "TEL;TYPE=CELL,VOICE:+989357550776",
+    "EMAIL:abolfazlqorbani912@gmail.com",
+    "NOTE:Biomedical Engineer | R&D Specialist",
+    "END:VCARD"
+  ].join("\r\n");
+
+  const blob = new Blob(
+    [vcard],
+    {type:"text/vcard;charset=utf-8"}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "Abolfazl-Qorbani.vcf";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
